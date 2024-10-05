@@ -99,8 +99,14 @@ void Simulation::step(float dt){
                             if(squaredDistance > smoothingRadiusSquared){
                                 continue;
                             }
+
+                            float squaredRadiusMinusSquaredDistance = smoothingRadiusSquared - squaredDistance;
                             
-                            particleI.density += std::pow(smoothingRadiusSquared - squaredDistance, 3);
+                            particleI.density += (
+                                squaredRadiusMinusSquaredDistance * 
+                                squaredRadiusMinusSquaredDistance * 
+                                squaredRadiusMinusSquaredDistance
+                            );
                         }
                     }
                 }

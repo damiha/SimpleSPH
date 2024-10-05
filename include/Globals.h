@@ -19,7 +19,9 @@ const float EPSILON = 1e-9f;
 // needs to match the value in water frag
 const int MAX_POINTS_FOR_SHADER = 1024;
 
-float lengthSq(sf::Vector2f& v);
+inline float lengthSq(sf::Vector2f& v){
+    return (v.x * v.x) + (v.y * v.y);
+}
 
 float dot(sf::Vector2f& u, sf::Vector2f& v);
 

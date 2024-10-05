@@ -36,3 +36,25 @@ float brownianAmplitude = 1;
 
 Particles: 700
 FPS: 60
+
+// eliminated call to std::pow and inlined lengthSq
+// no significant speed up
+
+// TEST 3
+
+float domainWidth = 80;
+float domainHeight = 160;
+float scalingFactorForWorld = WINDOW_WIDTH / domainWidth;
+float smoothingRadius = 3;
+float smoothingRadiusSquared = smoothingRadius * smoothingRadius;
+// mass of a particle
+float M = 1.0;
+// for collisions with boundaries
+float dampingFactor = 0.9;
+float isentropicExponent = 40.0;
+float baseDensity = 3.;
+float dynamicViscosity = 1.;
+float brownianAmplitude = 1;
+
+Particles: 700
+FPS: 60

@@ -1,10 +1,6 @@
 
 #include "../include/Globals.h"
 
-float lengthSq(sf::Vector2f& v){
-    return (v.x * v.x) + (v.y * v.y);
-}
-
 float dot(sf::Vector2f &u, sf::Vector2f &v)
 {
     return (u.x * v.x) + (u.y * v.y);
