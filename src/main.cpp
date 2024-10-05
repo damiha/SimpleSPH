@@ -25,10 +25,13 @@ int main()
         return 1;
     }
 
-    ParticleSource topSource = ParticleSource(sf::Vector2f(35, 10), 10, sf::Vector2f(0, 3), 20, 0.1);
-
     Simulation sim = Simulation();
+
+    ParticleSource topSource = ParticleSource(sf::Vector2f(35, 10), 10, sf::Vector2f(0, 3), 20, 0.1);
+    RoundLine topLine = RoundLine(sf::Vector2f(15, 25), sf::Vector2f(65, 25), 5, sim.scalingFactorForWorld);
+
     sim.addSource(topSource);
+    sim.addLine(topLine);
 
     sf::Clock clock;
     sf::Time prevTime = clock.getElapsedTime();
@@ -75,6 +78,7 @@ int main()
         
         //sim.drawParticles(window);
         window.draw(waterSprite, &waterShader);
+        sim.drawLines(window);
 
         infoText.setString("FPS: " + std::to_string(fps) + "\nparticles: " + std::to_string((int)sim.particles.size()));
         window.draw(infoText);

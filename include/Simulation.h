@@ -5,6 +5,7 @@
 #include "ParticleSource.h"
 #include "Particle.h"
 #include "Globals.h"
+#include "RoundLine.h"
 #include <vector>
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -16,6 +17,8 @@ class Simulation {
 public:
     std::vector<Particle> particles;
     std::vector<ParticleSource> particleSources;
+
+    std::vector<RoundLine> roundLines;
 
     float domainWidth = 80;
     float domainHeight = 160;
@@ -49,8 +52,12 @@ public:
     Simulation();
 
     void addSource(ParticleSource& source);
+    void addLine(RoundLine& roundLine);
+
     void step(float deltaTime);
     void drawParticles(sf::RenderWindow& window);
+
+    void drawLines(sf::RenderWindow& window);
 };
 
 #endif

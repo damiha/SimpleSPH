@@ -1,4 +1,5 @@
 #include "../include/Simulation.h"
+#include "Simulation.h"
 
 Simulation::Simulation(){
     
@@ -27,8 +28,20 @@ void Simulation::drawParticles(sf::RenderWindow& window){
     }
 }
 
-void Simulation::addSource(ParticleSource& source){
+void Simulation::drawLines(sf::RenderWindow &window)
+{
+    for(RoundLine& roundLine : roundLines){
+        roundLine.draw(window);
+    }
+}
+void Simulation::addSource(ParticleSource &source)
+{
     particleSources.emplace_back(source);
+}
+
+void Simulation::addLine(RoundLine &roundLine)
+{
+    roundLines.emplace_back(roundLine);
 }
 
 void Simulation::step(float dt){
