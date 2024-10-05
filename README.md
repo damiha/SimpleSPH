@@ -6,7 +6,7 @@ to solve the Navier-Stokes equations. We consider a finite number of particles t
 
 Below is a little demo of how it looks like (the gif needs a few seconds to loads). Following [this awesome tutorial](https://www.youtube.com/watch?v=-0m05gzk8nk) and in light of the ongoing Oktoberfest in Munich, Germany, I tried to simulate beer (Hefeweizen).
 
-![Video](gifs/beer_sph.GIF)
+![Video](gifs/beer_sph_3x.GIF)
 
 **NOTE**: On a single laptop CPU, I get ~60 FPS for ~700 particles.
 The video recording and conversion to a GIF makes the simulation appear slower than it actually is.
