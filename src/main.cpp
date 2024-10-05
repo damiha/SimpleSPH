@@ -19,8 +19,14 @@ int main()
     infoText.setFillColor(sf::Color::White);
     infoText.setPosition(10, 10);
 
-    sf::Shader waterShader;
-    if (!waterShader.loadFromFile("./src/water.frag", sf::Shader::Fragment)) {
+    sf::Shader fluidShader;
+    if (!fluidShader.loadFromFile("./src/fluid.frag", sf::Shader::Fragment)) {
+        std::cerr << "Error loading shader\n";
+        return 1;
+    }
+
+    sf::Shader backgroundShader;
+    if (!backgroundShader.loadFromFile("./src/background.frag", sf::Shader::Fragment)) {
         std::cerr << "Error loading shader\n";
         return 1;
     }
@@ -48,9 +54,23 @@ int main()
     sf::Time prevTime = clock.getElapsedTime();
 
     // create a texture and a sprite to apply the shader to
-    sf::Texture waterTexture;
-    waterTexture.create(WINDOW_WIDTH, WINDOW_HEIGHT);
-    sf::Sprite waterSprite(waterTexture);
+    sf::Texture fluidTexture;
+    fluidTexture.create(WINDOW_WIDTH, WINDOW_HEIGHT);
+    sf::Sprite fluidSprite(fluidTexture);
+
+    sf::Texture backgroundTexture;
+
+    if(!backgroundTexture.loadFromFile("./assets/bavaria2.jpg")){
+        std::cout << "failed to load background image" << std::endl;
+    }
+
+    sf::Sprite backgroundSprite(backgroundTexture);
+
+    float yScale = WINDOW_HEIGHT * 1.0f / backgroundTexture.getSize().y;
+    backgroundSprite.setScale(sf::Vector2f(yScale, yScale));
+    backgroundShader.setUniform("texture", backgroundTexture);
+    backgroundShader.setUniform("textureSize", sf::Vector2f(backgroundTexture.getSize()));
+    backgroundShader.setUniform("kernelSize", 7);
 
     while (window.isOpen())
     {
@@ -119,14 +139,16 @@ int main()
 
         int pointCount = std::min(MAX_POINTS_FOR_SHADER, static_cast<int>(sim.particles.size()));
 
-        waterShader.setUniform("pointCount", pointCount);
-        waterShader.setUniform("kernelRadiusInPixels", (int)(sim.smoothingRadius * sim.scalingFactorForWorld));
-        waterShader.setUniformArray("pixelPositions", pixelPositions.data(), pixelPositions.size());
+        fluidShader.setUniform("pointCount", pointCount);
+        fluidShader.setUniform("kernelRadiusInPixels", (int)(sim.smoothingRadius * sim.scalingFactorForWorld));
+        fluidShader.setUniformArray("pixelPositions", pixelPositions.data(), pixelPositions.size());
 
         window.clear();
         
+        window.draw(backgroundSprite, &backgroundShader);
+        
         //sim.drawParticles(window);
-        window.draw(waterSprite, &waterShader);
+        window.draw(fluidSprite, &fluidShader);
         sim.drawLines(window);
         //sim.drawGridOccupancy(window);
 

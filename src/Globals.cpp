@@ -27,7 +27,7 @@ void print(char* varName, float v){
     printf("%s: %.3f\n", varName, v);
 }
 
-void print(char* varName, sf::Vector2f& v){
+void print(char* varName, const sf::Vector2f& v){
     printf("%s: (%.3f, %.3f)\n", varName, v.x, v.y);
 }
 

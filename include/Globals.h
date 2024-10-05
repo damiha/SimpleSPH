@@ -33,7 +33,7 @@ float clamp(float v, float min, float max);
 
 void print(char* varName, float v);
 
-void print(char* varName, sf::Vector2f& v);
+void print(char* varName, const sf::Vector2f& v);
 
 void warnIfAbnormal(char* varName, sf::Vector2f& v);
 
