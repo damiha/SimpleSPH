@@ -4,7 +4,7 @@
 SPH (smooth particle hydrodynamics) is a Lagrangian approach
 to solve the Navier-Stokes equations. We consider a finite number of particles that can move around freely (they are not tied to grid points as in an Eulerian method) and transform a partial differential equation into a set of ordinary differential equations.
 
-Below is a little demo of how it looks like (the gif needs a few seconds to loads). Following [this awesome tutorial](https://www.youtube.com/watch?v=-0m05gzk8nk) and in light of the ongoing Oktoberfest in Munich, Germany, I tried to simulate beer (Hefeweizen).
+Below is a little demo of how it looks like (the gif needs approx. 30s seconds to loads). Following [this awesome tutorial](https://www.youtube.com/watch?v=-0m05gzk8nk) and in light of the ongoing Oktoberfest in Munich, Germany, I tried to simulate beer (Hefeweizen).
 
 ![Video](gifs/beer_sph_4x.GIF)
 
