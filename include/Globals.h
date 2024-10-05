@@ -17,7 +17,7 @@ const float PI = 3.1415926535f;
 const float EPSILON = 1e-9f;
 
 // needs to match the value in water frag
-const int MAX_POINTS_FOR_SHADER = 256;
+const int MAX_POINTS_FOR_SHADER = 1024;
 
 float lengthSq(sf::Vector2f& v);
 

@@ -1,7 +1,7 @@
 #version 120
 
 uniform vec2 resolution;
-uniform vec2 pixelPositions[256];
+uniform vec2 pixelPositions[1024];
 uniform int pointCount;
 uniform int kernelRadiusInPixels;
 

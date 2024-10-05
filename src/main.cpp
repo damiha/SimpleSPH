@@ -31,7 +31,7 @@ int main()
 
     Simulation sim = Simulation();
 
-    ParticleSource topSource = ParticleSource(sf::Vector2f(35, 10), 10, sf::Vector2f(0, 3), 20, 0.1);
+    ParticleSource topSource = ParticleSource(sf::Vector2f(35, 10), 10, sf::Vector2f(0, 3), 20, 0.025);
 
     RoundLine topLineLeft = RoundLine(sf::Vector2f(5, 60), sf::Vector2f(40, 80), 2.5, sim.scalingFactorForWorld);
     RoundLine topLineRight = RoundLine(sf::Vector2f(65, 90), sf::Vector2f(35, 110), 2.5, sim.scalingFactorForWorld);
@@ -106,6 +106,7 @@ int main()
         }
 
         sim.step(deltaTime);
+        //sim.step(1.0 / 1000.0f);
 
         // set info for the water shader
         std::vector<sf::Vector2f> pixelPositions;
@@ -127,6 +128,7 @@ int main()
         //sim.drawParticles(window);
         window.draw(waterSprite, &waterShader);
         sim.drawLines(window);
+        //sim.drawGridOccupancy(window);
 
         infoText.setString("FPS: " + std::to_string(fps) + "\nparticles: " + std::to_string((int)sim.particles.size()));
         window.draw(infoText);

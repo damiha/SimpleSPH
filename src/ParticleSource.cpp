@@ -5,6 +5,7 @@ ParticleSource::ParticleSource(sf::Vector2f position, float sourceWidth, sf::Vec
     position(position), sourceWidth(sourceWidth), initialVelocity(initialVelocity), duration(duration), timeBetweenParticles(timeBetweenParticles) {
 
         timeSinceLastParticle = 0;
+        timeSinceSourceCreation = 0;
         isActive = true;
 }
 

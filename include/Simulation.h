@@ -11,12 +11,15 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <algorithm>
+#include "LinkedCellContainer.h"
 
 class Simulation {
 
 public:
     std::vector<Particle> particles;
     std::vector<ParticleSource> particleSources;
+
+    LinkedCellContainer container;
 
     std::vector<RoundLine> roundLines;
 
@@ -25,7 +28,7 @@ public:
 
     float scalingFactorForWorld = WINDOW_WIDTH / domainWidth;
 
-    float smoothingRadius = 5;
+    float smoothingRadius = 3;
 
     float smoothingRadiusSquared = smoothingRadius * smoothingRadius;
 
@@ -58,6 +61,7 @@ public:
     void drawParticles(sf::RenderWindow& window);
 
     void drawLines(sf::RenderWindow& window);
+    void drawGridOccupancy(sf::RenderWindow& window);
 };
 
 #endif

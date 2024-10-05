@@ -10,17 +10,16 @@ class ParticleSource {
 
 public:
 
+    sf::Vector2f position;
+    sf::Vector2f initialVelocity;
+
     float sourceWidth;
-    float angularSpread;
     float duration;
     float timeBetweenParticles;
 
     float timeSinceLastParticle;
     float timeSinceSourceCreation;
     bool isActive;
-
-    sf::Vector2f position;
-    sf::Vector2f initialVelocity;
 
     ParticleSource(sf::Vector2f position, float sourceWidth, sf::Vector2f initialVelocity, float duration, float timeBetweenParticles);
 
