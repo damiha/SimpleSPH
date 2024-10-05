@@ -1,9 +1,11 @@
 #include "../include/RoundLine.h"
+#include "RoundLine.h"
 
 RoundLine::RoundLine(sf::Vector2f startPos, sf::Vector2f endPos, float radius, float scalingFactorForWorld) :
  startPos(startPos), endPos(endPos), radius(radius), scalingFactorForWorld(scalingFactorForWorld)
 {
-    
+    isCircle = (startPos.x == endPos.x && startPos.y == endPos.y);
+    squaredRadius = radius * radius;
 }
 
 RoundLine::RoundLine(sf::Vector2f pos, float radius, float scalingFactorForWorld) : RoundLine(pos, pos, radius, scalingFactorForWorld)
@@ -52,4 +54,43 @@ void RoundLine::draw(sf::RenderWindow &window)
     window.draw(line);
     window.draw(startCircle);
     window.draw(endCircle);
+}
+
+sf::Vector2f RoundLine::getProjected(sf::Vector2f &position)
+{
+    sf::Vector2f startToEnd = endPos - startPos;
+    sf::Vector2f startToPosition = position - startPos;
+
+    float startToEndSqLength = lengthSq(startToEnd);
+
+    float lambda = clamp(dot(startToPosition, startToEnd) / startToEndSqLength, 0.0f, 1.0f);
+
+    return startPos + lambda * startToEnd;
+}
+
+RoundedLineCollision RoundLine::intersectWithMouse(sf::Vector2f mousePosition)
+{
+    
+    sf::Vector2f mousePosInWorldCoords = (1.0f / scalingFactorForWorld) * mousePosition;
+
+    if(isCircle){
+        sf::Vector2f distanceVec = mousePosInWorldCoords - startPos;
+        float squaredDistance = lengthSq(distanceVec);
+
+        return squaredDistance <= squaredRadius ? BOTH : NONE;
+    }
+    else{
+        
+        sf::Vector2f distanceToStartVec = mousePosInWorldCoords - startPos;
+        float squaredDistanceToStart = lengthSq(distanceToStartVec);
+
+        if(squaredDistanceToStart <= squaredRadius){
+            return START;
+        }
+
+        sf::Vector2f distanceEndVec = mousePosInWorldCoords - endPos;
+        float squaredDistanceToEnd = lengthSq(distanceEndVec);
+
+        return squaredDistanceToEnd <=squaredRadius ? END : NONE;
+    }
 }

@@ -21,6 +21,8 @@ const int MAX_POINTS_FOR_SHADER = 256;
 
 float lengthSq(sf::Vector2f& v);
 
+float dot(sf::Vector2f& u, sf::Vector2f& v);
+
 float randF(float min, float max);
 
 float randN(float sigma);
@@ -32,5 +34,12 @@ void print(char* varName, float v);
 void print(char* varName, sf::Vector2f& v);
 
 void warnIfAbnormal(char* varName, sf::Vector2f& v);
+
+enum RoundedLineCollision : unsigned int {
+    START = 0,
+    END = 1,
+    BOTH = 2,
+    NONE = 3
+};
 
 #endif

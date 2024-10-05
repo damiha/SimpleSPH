@@ -5,7 +5,13 @@ float lengthSq(sf::Vector2f& v){
     return (v.x * v.x) + (v.y * v.y);
 }
 
-float randF(float min, float max) {
+float dot(sf::Vector2f &u, sf::Vector2f &v)
+{
+    return (u.x * v.x) + (u.y * v.y);
+}
+
+float randF(float min, float max)
+{
     static std::mt19937 generator(std::time(0));
     std::uniform_real_distribution<float> distribution(min, max);
     return distribution(generator);

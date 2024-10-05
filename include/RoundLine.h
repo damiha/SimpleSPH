@@ -6,13 +6,18 @@
 #include <SFML/Graphics.hpp>
 #include "Particle.h"
 #include <cmath>
+#include "Globals.h"
 
 class RoundLine{
 
 public:
     sf::Vector2f startPos, endPos;
     float radius;
+    float squaredRadius;
+    
     float scalingFactorForWorld;
+
+    bool isCircle = false;
 
     RoundLine(sf::Vector2f pos, float radius, float scalingFactorForWorld);
     RoundLine(sf::Vector2f startPos, sf::Vector2f endPos, float radius, float scalingFactorForWorld);
@@ -21,7 +26,9 @@ public:
 
     void intersect(Particle& particle);
 
-    bool intersectWithMouse(sf::Vector2f mousPosition);
+    sf::Vector2f getProjected(sf::Vector2f& position);
+
+    RoundedLineCollision intersectWithMouse(sf::Vector2f mousPosition);
 };
 
 #endif
