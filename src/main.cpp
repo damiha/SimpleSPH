@@ -41,8 +41,8 @@ int main()
 
     ParticleSource topSource = ParticleSource(sf::Vector2f(35, 10), 10, sf::Vector2f(0, 3), 20, 0.025);
 
-    RoundLine topLineLeft = RoundLine(sf::Vector2f(5, 60), sf::Vector2f(40, 80), 2.5, sim.scalingFactorForWorld);
-    RoundLine topLineRight = RoundLine(sf::Vector2f(65, 90), sf::Vector2f(35, 110), 2.5, sim.scalingFactorForWorld);
+    RoundLine topLineLeft = RoundLine(sf::Vector2f(5, 60), sf::Vector2f(40, 80), 5, sim.scalingFactorForWorld);
+    RoundLine topLineRight = RoundLine(sf::Vector2f(65, 90), sf::Vector2f(35, 110), 5, sim.scalingFactorForWorld);
     RoundLine midCircle = RoundLine(sf::Vector2f(35, 150), 6, sim.scalingFactorForWorld);
 
 
