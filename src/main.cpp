@@ -15,9 +15,11 @@ int main()
     }
     sf::Text infoText;
     infoText.setFont(font);
-    infoText.setCharacterSize(12);
+    infoText.setCharacterSize(14);
     infoText.setFillColor(sf::Color::White);
     infoText.setPosition(10, 10);
+    infoText.setOutlineColor(sf::Color(66, 135, 245, 255));
+    infoText.setOutlineThickness(2);
 
     sf::Shader fluidShader;
     if (!fluidShader.loadFromFile("./src/fluid.frag", sf::Shader::Fragment)) {
@@ -72,6 +74,8 @@ int main()
     backgroundShader.setUniform("textureSize", sf::Vector2f(backgroundTexture.getSize()));
     backgroundShader.setUniform("kernelSize", 7);
 
+    bool simulationIsRunning = false;
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -96,7 +100,12 @@ int main()
             if (event.type == sf::Event::MouseMoved){
                 mousePosition = window.mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
             }
-        
+
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Space) {
+                    simulationIsRunning = true;
+                }
+            }
         }
 
         sf::Time currTime = clock.getElapsedTime();
@@ -124,8 +133,10 @@ int main()
                 }
             }
         }
-
-        sim.step(deltaTime);
+        
+        if(simulationIsRunning){
+            sim.step(deltaTime);
+        }
         //sim.step(1.0 / 1000.0f);
 
         // set info for the water shader

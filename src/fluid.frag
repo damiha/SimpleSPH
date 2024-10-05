@@ -5,32 +5,34 @@ uniform vec2 pixelPositions[1024];
 uniform int pointCount;
 uniform int kernelRadiusInPixels;
 
+float densityToCutoff = 0.25;
+float densityForFoam = 0.65;
+
+float minOpacity = 0.8;
+float maxOpacity = 1.0;
+
 void main(){
 
     float density = 0.;
-    int neighbors = 0;
-
-    float opacity = .85;
 
     for(int i = 0; i < pointCount; i++){
         float additionalDensity = clamp(1.0 - length(gl_FragCoord.xy - pixelPositions[i]) * 1.0 / kernelRadiusInPixels, 0., 1.);
-
-        if(additionalDensity > 0.){
-            neighbors += 1;
-        }
         density += additionalDensity;
     }
 
     density = clamp(density, 0.0, 1.);
 
     // cutoff for hard water surface
-    if(density < 0.25){
+    if(density < densityToCutoff){
         gl_FragColor = vec4(0., 0., 0., 0.);
     }
 
     else{
         // visible so normalize
-        float lambda = (density - 0.5) / (0.5);
+        float lambda = (density - densityForFoam) / (1.0 - densityForFoam);
+        lambda = lambda > 0. ? lambda : 0.;
+
+        float opacity = lambda * minOpacity + (1. - lambda) * maxOpacity;
 
         // 250, 193, 37
         vec4 darkColor = vec4(250., 193., 37., opacity * 255.) / 255.;
