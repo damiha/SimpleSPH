@@ -21,15 +21,18 @@ void RoundLine::draw(sf::RenderWindow &window)
     sf::Vector2f scaledEnd = endPos * scalingFactorForWorld;
 
     // Create the line
-    sf::Vector2f direction = scaledEnd - scaledStart;
-    float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-    sf::RectangleShape line(sf::Vector2f(length, 2 * scaledRadius));
-    line.setOrigin(0, scaledRadius);
-    line.setPosition(scaledStart);
-    line.setRotation(std::atan2(direction.y, direction.x) * 180 / M_PI);
-    line.setOutlineColor(sf::Color::White);
-    line.setOutlineThickness(1);
-    line.setFillColor(sf::Color::Transparent);
+    if(!isCircle){
+        sf::Vector2f direction = scaledEnd - scaledStart;
+        float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+        sf::RectangleShape line(sf::Vector2f(length, 2 * scaledRadius));
+        line.setOrigin(0, scaledRadius);
+        line.setPosition(scaledStart);
+        line.setRotation(std::atan2(direction.y, direction.x) * 180 / M_PI);
+        line.setOutlineColor(sf::Color::White);
+        line.setOutlineThickness(1);
+        line.setFillColor(sf::Color::Transparent);
+        window.draw(line);
+    }
 
     // Create start and end circles
     sf::CircleShape startCircle(scaledRadius);
@@ -50,8 +53,6 @@ void RoundLine::draw(sf::RenderWindow &window)
     startCircle.setOutlineColor(sf::Color::White);
     endCircle.setOutlineColor(sf::Color::White);
 
-    // Draw all elements
-    window.draw(line);
     window.draw(startCircle);
     window.draw(endCircle);
 }

@@ -25,7 +25,7 @@ public:
 
     float scalingFactorForWorld = WINDOW_WIDTH / domainWidth;
 
-    float smoothingRadius = 10;
+    float smoothingRadius = 5;
 
     float smoothingRadiusSquared = smoothingRadius * smoothingRadius;
 

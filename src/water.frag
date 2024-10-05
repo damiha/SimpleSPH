@@ -22,7 +22,7 @@ void main(){
     density = clamp(density, 0.0, 1.);
 
     // cutoff for hard water surface
-    if(density < 0.5){
+    if(density < 0.25){
         gl_FragColor = vec4(0., 0., 0., 1.);
     }
 
