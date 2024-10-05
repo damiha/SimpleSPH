@@ -56,6 +56,32 @@ void RoundLine::draw(sf::RenderWindow &window)
     window.draw(endCircle);
 }
 
+Collision RoundLine::intersect(Particle &particle, float particleRadius)
+{
+    
+    sf::Vector2f projected = isCircle ? startPos : getProjected(particle.position);
+    sf::Vector2f normal = particle.position - projected;
+
+    Collision collision;
+    collision.collisionOccurred = false;
+
+    float squaredDistance = lengthSq(normal);
+
+    if(squaredDistance <= (particleRadius + radius) * (particleRadius + radius)){
+        
+        collision.collisionOccurred = true;
+
+        float distance = std::sqrt(squaredDistance);
+        normal /= distance;
+
+        collision.normal = normal;
+
+        collision.penetrationDepth = (particleRadius + radius) - distance;
+    }
+
+    return collision;
+}
+
 sf::Vector2f RoundLine::getProjected(sf::Vector2f &position)
 {
     sf::Vector2f startToEnd = endPos - startPos;

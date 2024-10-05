@@ -7,6 +7,7 @@
 #include "Particle.h"
 #include <cmath>
 #include "Globals.h"
+#include "Collision.h"
 
 class RoundLine{
 
@@ -14,7 +15,7 @@ public:
     sf::Vector2f startPos, endPos;
     float radius;
     float squaredRadius;
-    
+
     float scalingFactorForWorld;
 
     bool isCircle = false;
@@ -24,7 +25,7 @@ public:
 
     void draw(sf::RenderWindow& window);
 
-    void intersect(Particle& particle);
+    Collision intersect(Particle& particle, float particleRadius);
 
     sf::Vector2f getProjected(sf::Vector2f& position);
 

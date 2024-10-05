@@ -167,5 +167,22 @@ void Simulation::step(float dt){
             p.position.y = smoothingRadius;
             p.velocity.y *= -dampingFactor;
         }
+
+        // enforce boundary conditions enforced by obstacles
+        for(RoundLine& line : roundLines){
+            
+            Collision collision = line.intersect(p, smoothingRadius);
+
+            if(collision.collisionOccurred){
+                
+                p.position += (collision.normal * collision.penetrationDepth);
+
+                sf::Vector2f normalVelocity = dot(collision.normal, p.velocity) * collision.normal;
+
+                //sf::Vector2f tangentVelocity = p.velocity - normalVelocity;
+                // velocity := tangentVelocity - 2 * normalVelocity
+                p.velocity -= (2.0f * normalVelocity);
+            }
+        }
     }
 }
